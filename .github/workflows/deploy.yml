@@ -20,9 +20,9 @@ jobs:
 
     - name: Modify app.yaml with environment variables
         run: |
-          echo "env_variables:" >> app.yaml
-          echo "  MONGO_URI: '${{ secrets.MONGO_URI }}'" >> app.yaml
-          echo "  CURRENT_URL: '${{ secrets.CURRENT_URL }}'" >> app.yaml
+        echo "env_variables:" >> app.yaml
+        echo "  MONGO_URI: '${{ secrets.MONGO_URI }}'" >> app.yaml
+        echo "  CURRENT_URL: '${{ secrets.CURRENT_URL }}'" >> app.yaml
 
     - name: Deploy to App Engine
       run: |
