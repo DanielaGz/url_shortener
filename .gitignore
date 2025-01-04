@@ -1,0 +1,24 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pyd
+*.db
+
+# Virtual environment
+venv/
+.env/
+
+# Uvicorn logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# dotenv files
+.env
