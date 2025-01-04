@@ -19,7 +19,7 @@ jobs:
         export_default_credentials: true
 
     - name: Modify app.yaml with environment variables
-        run: |
+      run: |
         echo "env_variables:" >> app.yaml
         echo "  MONGO_URI: '${{ secrets.MONGO_URI }}'" >> app.yaml
         echo "  CURRENT_URL: '${{ secrets.CURRENT_URL }}'" >> app.yaml
