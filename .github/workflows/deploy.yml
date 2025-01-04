@@ -22,4 +22,6 @@ jobs:
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy --quiet
+        gcloud app deploy --quiet \
+          --env-vars MONGO_URI=${{ secrets.MONGO_URI }} \
+          --env-vars CURRENT_URL=${{ secrets.CURRENT_URL }}
