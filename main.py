@@ -13,6 +13,14 @@ load_dotenv()
 
 CURRENT_URL = os.getenv("CURRENT_URL")
 
+# Accede a las variables de entorno
+current_url = os.getenv("CURRENT_URL")
+mongo_uri = os.getenv("MONGO_URI")
+
+# Usa las variables como lo necesites
+print(f"Current URL: {current_url}")
+print(f"Mongo URI: {mongo_uri}")
+
 app = FastAPI()
 
 
