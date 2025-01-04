@@ -1,5 +1,5 @@
 runtime: python310
-entrypoint: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+entrypoint: uvicorn main:app --host 0.0.0.0 --port $PORT
 
 env_variables:
   CURRENT_URL: "projects/ornate-grin-446817-p3/secrets/CURRENT_URL/versions/latest"
