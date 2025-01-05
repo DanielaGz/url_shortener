@@ -11,12 +11,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
+    - name: Auth
+      uses: google-github-actions/auth@v2
       with:
         project_id: ornate-grin-446817-p3  # Tu ID de proyecto
-        service_account_key: ${{ secrets.GCP_SA_KEY }}  # La clave del servicio de Google Cloud
-        export_default_credentials: true  # Esto exporta las credenciales como predeterminadas
+        credentials_json: ${{ secrets.GCP_SA_KEY }}  # La clave del servicio de Google Cloud
+
+    - name: Set up cloud SDK
+      uses: 'google-github-actions/setup-gcloud@v2'
 
 
     - name: Modify app.yaml with environment variables
