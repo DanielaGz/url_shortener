@@ -11,6 +11,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+
+    - name: Configure gcloud
+      run: |
+        gcloud config set project ornate-grin-446817-p3
+        gcloud config set compute/region us-central1
+        gcloud config set compute/zone us-central1-a
+
+
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
