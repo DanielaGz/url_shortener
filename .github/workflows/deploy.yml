@@ -1,34 +1,34 @@
 name: Deploy to Google App Engine
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Esto permite ejecutar el flujo manualmente desde GitHub
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # El trabajo se ejecuta en un entorno Ubuntu
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Paso para obtener el código fuente del repositorio
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
+      uses: google-github-actions/setup-gcloud@v1  # Configura Google Cloud SDK
       with:
-        project_id: ornate-grin-446817-p3
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        project_id: ornate-grin-446817-p3  # ID de tu proyecto de Google Cloud
+        service_account_key: ${{ secrets.GCP_SA_KEY }}  # Usa el secreto de la cuenta de servicio
+        export_default_credentials: true  # Establece las credenciales por defecto
 
     - name: Authenticate with Google Cloud
       run: |
-        echo "${{ secrets.GCP_SA_KEY }}" > ${HOME}/gcloud-service-key.json
-        gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-        gcloud config set project ornate-grin-446817-p3
+        echo "${{ secrets.GCP_SA_KEY }}" > ${HOME}/gcloud-service-key.json  # Guarda el secreto en un archivo
+        gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json  # Autentica la cuenta de servicio
+        gcloud config set project ornate-grin-446817-p3  # Establece el proyecto de Google Cloud
 
     - name: Verify gcloud authentication
       run: |
-        gcloud auth list
-        gcloud config list
+        gcloud auth list  # Muestra las cuentas autenticadas
+        gcloud config list  # Muestra la configuración actual de gcloud
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy --quiet
+        gcloud app deploy --quiet  # Despliega la aplicación en Google App Engine
