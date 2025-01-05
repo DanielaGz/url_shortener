@@ -1,34 +1,30 @@
 name: Deploy to Google App Engine
 
 on:
-  workflow_dispatch:  # Esto permite ejecutar el flujo manualmente desde GitHub
+  workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # El trabajo se ejecuta en un entorno Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Paso para obtener el código fuente del repositorio
+      uses: actions/checkout@v3
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1  # Configura Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
       with:
-        project_id: ornate-grin-446817-p3  # ID de tu proyecto de Google Cloud
-        service_account_key: ${{ secrets.GCP_SA_KEY }}  # Usa el secreto de la cuenta de servicio
-        export_default_credentials: true  # Establece las credenciales por defecto
+        project_id: ornate-grin-446817-p3  # Tu ID de proyecto
+        service_account_key: ${{ secrets.GCP_SA_KEY }}  # La clave del servicio de Google Cloud
+        export_default_credentials: true  # Esto exporta las credenciales como predeterminadas
 
-    - name: Authenticate with Google Cloud
-      run: |
-        echo "${{ secrets.GCP_SA_KEY }}" > ${HOME}/gcloud-service-key.json  # Guarda el secreto en un archivo
-        gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json  # Autentica la cuenta de servicio
-        gcloud config set project ornate-grin-446817-p3  # Establece el proyecto de Google Cloud
 
-    - name: Verify gcloud authentication
+    - name: Modify app.yaml with environment variables
       run: |
-        gcloud auth list  # Muestra las cuentas autenticadas
-        gcloud config list  # Muestra la configuración actual de gcloud
+        echo "env_variables:" >> app.yaml
+        echo "  MONGO_URI: '${{ secrets.MONGO_URI }}'" >> app.yaml
+        echo "  CURRENT_URL: '${{ secrets.CURRENT_URL }}'" >> app.yaml
 
     - name: Deploy to App Engine
       run: |
-        gcloud app deploy --quiet  # Despliega la aplicación en Google App Engine
+        gcloud app deploy --quiet
