@@ -26,8 +26,8 @@ jobs:
 
     - name: Deploy to App Engine
       run: |
-        try:
-          gcloud app deploy --quiet
-        except:
+        gcloud app deploy --quiet
+        if [ $? -ne 0 ]; then
           echo "Error during deployment"
           exit 1
+        fi
