@@ -18,6 +18,18 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
 
+    - name: Clean gcloud configuration
+      run: |
+        gcloud config configurations activate default
+        gcloud config unset account
+        gcloud config unset project
+
+
+    - name: Verify gcloud authentication
+      run: |
+        gcloud auth list
+        gcloud config list
+
     - name: Modify app.yaml with environment variables
       run: |
         echo "env_variables:" >> app.yaml
