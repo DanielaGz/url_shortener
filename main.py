@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from schemas import URLCreate, URLResponse
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 from database import connectDb
 from dotenv import load_dotenv
 import random
@@ -22,6 +23,14 @@ print(f"Current URL: {current_url}")
 print(f"Mongo URI: {mongo_uri}")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.on_event("startup")
