@@ -48,6 +48,11 @@ def generate_short_id(length=6):
     return ''.join(random.choices(characters, k=length))
 
 
+@app.get("/", summary="Health check")
+async def root():
+    return {"status": "ok"}
+
+
 @app.post(
     "/shorten",
     response_model=URLResponse,
